@@ -54,8 +54,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "home",
-    "core",
+    "press_agency",
+    "portfolio_project",
 ]
 
 MIDDLEWARE = [
@@ -68,7 +68,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "core.urls"
+ROOT_URLCONF = "portfolio_project.urls"
 
 HOME_TEMPLATES = os.path.join(BASE_DIR, "templates")
 
@@ -88,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "portfolio_project.wsgi.application"
 
 
 # Database
@@ -169,5 +169,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/accounts/login/"
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-AUTH_USER_MODEL = "home.Redactor"
+AUTH_USER_MODEL = "press_agency.Redactor"

@@ -27,6 +27,17 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "pages/index.html", context=context)
 
 
+class NewspaperAddTopic(LoginRequiredMixin, generic.CreateView):
+    model = Topic
+    form_class = NewspaperForm
+    template_name = "pages/newspaper-topic.html"
+    success_url = reverse_lazy("index")
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
 def contact_us(request):
     return render(request, "pages/contact-us.html")
 
@@ -65,11 +76,24 @@ def user_logout_view(request):
     return redirect("/accounts/login/")
 
 
-class AuthorProfile(generic.CreateView):
+class AuthorProfile(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
     form_class = AuthorProfileForm
     template_name = "pages/author-profile.html"
     success_url = reverse_lazy("index")
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        form.instance.username = self.request.user.username
+        form.instance.pk = self.request.user.pk
+        return super().form_valid(form)
+
+    def get_initial(self):
+        return {
+            "pen_name": self.request.user.username,
+        }
 
 
 class RedactorDetailsView(generic.DetailView):
@@ -116,14 +140,3 @@ class NewspaperList(generic.ListView):
     fields = ["title", "content", "published_date", "topic", "publisher"]
     context_object_name = "newspapers"
     success_url = reverse_lazy("newspaper-list")
-
-
-class NewspaperAddTopic(LoginRequiredMixin, generic.CreateView):
-    model = Topic
-    form_class = NewspaperForm
-    template_name = "pages/newspaper-topic.html"
-    success_url = reverse_lazy("index")
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)

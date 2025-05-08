@@ -19,3 +19,22 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
 <script src="{% static "assets/js/material-kit.min.js" %}?v=3.1.0" type="text/javascript"></script>
+
+<!--NewspaperList-->
+<script>
+    function toggleContent(id) {
+        const preview = document.getElementById(`content-${id}`);
+        const full = document.getElementById(`full-content-${id}`);
+        const btn = document.getElementById(`toggle-btn-${id}`);
+
+        if (preview.classList.contains("d-none")) {
+            preview.classList.remove("d-none");
+            full.classList.add("d-none");
+            btn.innerText = "Show All";
+        } else {
+            preview.classList.add("d-none");
+            full.classList.remove("d-none");
+            btn.innerText = "Show Less";
+        }
+    }
+</script>

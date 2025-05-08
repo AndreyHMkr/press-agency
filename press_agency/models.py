@@ -1,14 +1,18 @@
-from django.contrib.auth.models import AbstractUser, User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
 class Topic(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(
-        blank=True, null=True, help_text="A brief description of the topic"
+        blank=True,
+        null=True,
+        help_text="A brief description of the topic"
     )
     owner = models.ForeignKey(
-        "Redactor", on_delete=models.CASCADE, related_name="topics"
+        "Redactor",
+        on_delete=models.CASCADE,
+        related_name="topics"
     )
 
     def number_publications_in_a_topic(self):

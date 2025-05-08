@@ -11,13 +11,6 @@
         <h4 class="card-title text-center mb-2">Set Your Pen Name</h4>
         <form method="post" novalidate>
           {% csrf_token %}
-          <div class="field-card">
-            <label for="{{ form.username.id_for_label }}">Username</label>
-            {{ form.username }}
-            {% for e in form.username.errors %}
-              <div class="text-danger small">{{ e }}</div>
-            {% endfor %}
-          </div>
           <div class="field-card field-date">
             <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth</label>
             <div class="input-group">
@@ -41,6 +34,13 @@
             <label for="{{ form.years_of_experience.id_for_label }}">Years of Experience</label>
             {{ form.years_of_experience }}
             {% for e in form.years_of_experience.errors %}
+              <div class="text-danger small">{{ e }}</div>
+            {% endfor %}
+          </div>
+          <div class="field-card">
+            <label for="{{ form.autobiography.id_for_label }}">Autobiography</label>
+            {{ form.autobiography }}
+            {% for e in form.autobiography.errors %}
               <div class="text-danger small">{{ e }}</div>
             {% endfor %}
           </div>

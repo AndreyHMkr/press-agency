@@ -1,8 +1,6 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-
 {% block body %}about-us bg-gray-100{% endblock body %}
-
 {% block content %}
 
   <header class="bg-gradient-dark">
@@ -14,7 +12,7 @@
             <h1 class="text-white">About Press Agency</h1>
             <p class="lead mb-4 text-white opacity-8">Meet our team of editors and writers behind every
               story.</p>
-            <a href="{% url 'author-profile' %}" class="btn bg-white text-dark">
+            <a href="{% url 'login' %}" class="btn bg-white text-dark">
               Create Account
             </a>
             <h6 class="text-white mb-2 mt-5">Find us on</h6>
@@ -51,7 +49,7 @@
                   <div class="col-md-8">
                     <div class="card-body">
                       <h5 class="card-title mb-1">
-                        <span class="text-muted">Name:</span>
+                        <span class="text-muted"></span>
                         {{ redactor.username }}
                       </h5>
                       {% if redactor.pen_name %}
@@ -62,6 +60,12 @@
                       {% if redactor.years_of_experience %}
                         <p class="mb-1"><span class="text-muted">Experience:</span>
                           {{ redactor.years_of_experience }} years
+                        </p>
+                      {% endif %}
+                      {% if redactor.email %}
+                        <p class="mb-1">
+                          <span class="text-muted">Email:</span>
+                          <a href="mailto:{{ redactor.email }}" class="text-primary">{{ redactor.email }}</a>
                         </p>
                       {% endif %}
                       {% if redactor.autobiography %}

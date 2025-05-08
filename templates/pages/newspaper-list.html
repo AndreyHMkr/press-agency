@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% include "includes/scripts.html" %}
 {% load static %}
 
 {% block body %}index-page bg-gray-200{% endblock body %}
@@ -16,7 +17,16 @@
                 </div>
                 <div class="card-body">
                   <h4 class="card-title">{{ newspaper.title }}</h4>
-                  <p class="card-text text-muted">{{ newspaper.content|truncatechars:100 }}</p>
+                  <p class="card-text text-muted" id="content-{{ newspaper.id }}">
+                    {{ newspaper.content|truncatechars:100 }}
+                  </p>
+                  <button class="btn btn-link p-0" onclick="toggleContent({{ newspaper.id }})"
+                          id="toggle-btn-{{ newspaper.id }}">
+                    Show All
+                  </button>
+                  <p class="card-text text-muted d-none" id="full-content-{{ newspaper.id }}">
+                    {{ newspaper.content }}
+                  </p>
                 </div>
                 <div class="card-footer bg-transparent d-flex justify-content-between small text-secondary">
                   <span>
@@ -61,4 +71,5 @@
       </div>
     </div>
   </div>
+
 {% endblock content %}
