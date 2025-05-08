@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block body %}index-page bg-gray-200{% endblock body %}
+
+{% block content %}
+  <article class="magazine">
+    <header class="magazine-header">
+      <h1>Add New Newspaper</h1>
+    </header>
+    <section class="magazine-content">
+      {% if view.object %}
+        {{ view.object.content|linebreaks }}
+      {% else %}
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="field">
+              {{ field.label_tag }}
+              {{ field }}
+              {% if field.help_text %}
+                <small class="text-muted">{{ field.help_text }}</small>
+              {% endif %}
+              {% if field.errors %}
+                <div class="text-danger small">{{ field.errors|join:", " }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <div class="magazine-footer">
+            <button type="submit" class="btn btn-primary px-4">Submit</button>
+          </div>
+        </form>
+      {% endif %}
+    </section>
+  </article>
+{% endblock %}

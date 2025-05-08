@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body %}index-page bg-gray-200{% endblock body %}
+
+{% block content %}
+  <div class="container mt-7 mb-5">
+    <h2 class="text-center mb-5">Magazine Topics</h2>
+    <div class="row gx-4 gy-4">
+      {% for topic in topics %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-gray-100 text-center">
+              <h5 class="mb-0">{{ topic.name }}</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text text-muted">
+                {{ topic.description|default:"No description provided." }}
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 text-center text-sm text-muted">
+              Publications: <strong>{{ topic.publications }}</strong>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12">
+          <p class="text-center text-secondary">No topics yet.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
