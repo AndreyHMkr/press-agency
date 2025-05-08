@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count
-from django.urls import reverse_lazy
+from django.db.models import Count, Q
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
@@ -10,16 +10,22 @@ from press_agency.forms import (
     LoginForm,
     RegistrationForm,
     AuthorProfileForm,
-    NewspaperDetailsForm,
+    NewspaperDetailsForm, NewspaperSearchForm,
 )
 from press_agency.models import Topic, Redactor, Newspaper
 
 
 def index(request: HttpRequest) -> HttpResponse:
+    search_form = NewspaperSearchForm(request.GET)
+    if search_form.is_valid():
+        title = search_form.cleaned_data["title"]
+        if title:
+            return redirect(f"{reverse('newspaper-list')}?title={title}")
     number_of_topic = Topic.objects.all().count()
     number_of_redactors = Redactor.objects.all().count()
     number_of_newspapers = Newspaper.objects.all().count()
     context = {
+        "search_form": search_form,
         "number_of_topic": number_of_topic,
         "number_of_redactors": number_of_redactors,
         "number_of_newspapers": number_of_newspapers,
@@ -140,3 +146,16 @@ class NewspaperList(generic.ListView):
     fields = ["title", "content", "published_date", "topic", "publisher"]
     context_object_name = "newspapers"
     success_url = reverse_lazy("newspaper-list")
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        title = self.request.GET.get("title")
+        if title:
+            queryset = queryset.filter(Q(title__icontains=title) | Q(content__icontains=title))
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        title = self.request.GET.get("title", "")
+        context = super().get_context_data(**kwargs)
+        context["search_query"] = self.request.GET.get("title", "")
+        return context

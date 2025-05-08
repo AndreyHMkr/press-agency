@@ -89,10 +89,16 @@
                   </a>
                 </li>
               {% endif %}
-              <li class="nav-item my-auto ms-3 ms-lg-0">
-                <a href="{% url 'logout' %}"
-                   class="btn  bg-gradient-dark  mb-0 mt-2 mt-md-0">Logged out</a>
-              </li>
+              <form method="get" action="/" class="ms-auto d-flex align-items-center gap-1">
+                <input type="search" name="title" placeholder="🔍 Search newspapers..."
+                       class="form-control form-control-sm rounded-pill px-2 py-1" style="width: 160px;"
+                       value="{{ search_query }}">
+                <button type="submit" class="btn btn-secondary btn-sm"
+                        style="height: 28px;line-height: 1;padding: 0 10px;font-size: 0.8rem;margin: 0;">
+                  Search
+                </button>
+              </form>
+
             </ul>
           </div>
         </div>

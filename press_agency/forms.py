@@ -162,3 +162,16 @@ class UserSetPasswordForm(SetPasswordForm):
         ),
         label="Confirm New Password",
     )
+
+
+class NewspaperSearchForm(forms.Form):
+    title = forms.CharField(
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={
+            "placeholder": "Search newspapers...",
+            "class": "form-control rounded-pill px-3",
+            "type": "search",
+            "style": "width:160px;"
+        })
+    )
