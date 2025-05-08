@@ -1,0 +1,75 @@
+{% extends "layouts/base.html" %}
+{% include "includes/scripts.html" %}
+{% load static %}
+
+{% block body %}index-page bg-gray-200{% endblock body %}
+{% block content %}
+  <div class="container mt-7 mb-5">
+    <h2 class="text-center mb-5">Magazine Topics</h2>
+    <div class="row gx-4 mt-5">
+      <div class="col-md-8">
+        <div class="magazine-grid row row-cols-1 row-cols-sm-2 g-4">
+          {% for newspaper in newspapers %}
+            <div class="col">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-light text-center">
+                  <h5 class="mb-0">{{ newspaper.topic }}</h5>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">{{ newspaper.title }}</h4>
+                  <p class="card-text text-muted" id="content-{{ newspaper.id }}">
+                    {{ newspaper.content|truncatechars:100 }}
+                  </p>
+                  <button class="btn btn-link p-0" onclick="toggleContent({{ newspaper.id }})"
+                          id="toggle-btn-{{ newspaper.id }}">
+                    Show All
+                  </button>
+                  <p class="card-text text-muted d-none" id="full-content-{{ newspaper.id }}">
+                    {{ newspaper.content }}
+                  </p>
+                </div>
+                <div class="card-footer bg-transparent d-flex justify-content-between small text-secondary">
+                  <span>
+                    <i class="far fa-calendar-alt"></i>
+                    {{ newspaper.published_date|date:"M j, Y" }}
+                  </span>
+                  <span>
+                    <i class="far fa-user"></i>
+                    {{ newspaper.publisher.username }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <div class="col-12">
+              <p class="text-center text-muted">No magazines yet.</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="sticky-top" style="top:100px;">
+          <div class="p-4 mb-4 bg-white shadow-sm rounded">
+            <h5 class="mb-3">About Our Magazine</h5>
+            <p class="small text-muted">
+              Welcome to our press agency. Here you can browse the latest newspapers,
+              learn about our editors, and discover exclusive behind-the-scenes content.
+            </p>
+            <a href="{% url 'about-us' %}" class="btn btn-outline-primary btn-sm w-100">
+              Learn more
+            </a>
+          </div>
+          <div class="p-4 bg-white shadow-sm rounded">
+            <h6 class="mb-3">Quick Links</h6>
+            <ul class="list-unstyled small">
+              <li><a href="{% url 'newspaper-topic' %}">Add new topic</a></li>
+              <li><a href="{% url 'author-profile' %}">Complete author profile</a></li>
+              <li><a href="{% url 'newspaper-details' %}">Publish newspaper</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
