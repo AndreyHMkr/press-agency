@@ -27,17 +27,6 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "pages/index.html", context=context)
 
 
-class NewspaperAddTopic(LoginRequiredMixin, generic.CreateView):
-    model = Topic
-    form_class = NewspaperForm
-    template_name = "pages/newspaper-topic.html"
-    success_url = reverse_lazy("index")
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-
 def contact_us(request):
     return render(request, "pages/contact-us.html")
 
@@ -127,3 +116,14 @@ class NewspaperList(generic.ListView):
     fields = ["title", "content", "published_date", "topic", "publisher"]
     context_object_name = "newspapers"
     success_url = reverse_lazy("newspaper-list")
+
+
+class NewspaperAddTopic(LoginRequiredMixin, generic.CreateView):
+    model = Topic
+    form_class = NewspaperForm
+    template_name = "pages/newspaper-topic.html"
+    success_url = reverse_lazy("index")
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
