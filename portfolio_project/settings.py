@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "YbE9UwJvDfbjkULZfU8XvGhGnrLOUSqFpQ0abLg1B3JSzdGCpU")
 if not SECRET_KEY:
     SECRET_KEY = "".join(random.choice(string.ascii_lowercase) for i in range(32))
 
 # Enable/Disable DEBUG Mode
-DEBUG = str2bool(os.environ.get("DEBUG", "True"))
+DEBUG = str2bool(os.environ.get("DEBUG", "False"))
 # print(' DEBUG -> ' + str(DEBUG) )
 
 # Docker HOST
