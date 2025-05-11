@@ -2,6 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django,pycharm
 
 ### Django ###
+press_agency_data.json
+.env
+.env.sample
 *.log
 *.pot
 *.pyc
