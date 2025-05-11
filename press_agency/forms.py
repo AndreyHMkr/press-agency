@@ -124,7 +124,10 @@ class NewspaperDetailsForm(forms.ModelForm):
 class LoginForm(AuthenticationForm):
     username = UsernameField(
         widget=forms.TextInput(
-            attrs={"class": "form-control"}
+            attrs={
+                "class": "form-control",
+                "placeholder": "Enter your username"
+            }
         )
     )
     password = forms.CharField(
@@ -133,7 +136,8 @@ class LoginForm(AuthenticationForm):
         widget=forms.PasswordInput(
             attrs={
                 "autocomplete": "current-password",
-                "class": "form-control"
+                "class": "form-control",
+                "placeholder": "Enter your password"
             }
         ),
     )
