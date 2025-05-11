@@ -2,7 +2,7 @@ from .base import *
 
 
 # Enable/Disable DEBUG Mode
-DEBUG = str2bool(os.environ.get("DEBUG", "False"))
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
 # print(' DEBUG -> ' + str(DEBUG) )
 
