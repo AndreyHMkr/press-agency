@@ -118,7 +118,7 @@ class NewspaperDetailsForm(forms.ModelForm):
     def __init__(self, user=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if user is not None:
-            self.fields["topic"].queryset = Topic.objects.filter(owner=user)
+            self.fields["topic"].queryset = Topic.objects.all()
 
 
 class LoginForm(AuthenticationForm):
