@@ -16,6 +16,12 @@ The project is available at: https://press-agency.onrender.com/
 - 📰 Article (Newspaper) creation, listing, and search
 - 🛠️ Admin panel with customized model management
 
+## 🔐 Test Account
+
+You can use the following test credentials to explore the functionality:
+- login: user
+- password: user123
+
 ## 🏗️ Tech Stack
 
 - Python 3
