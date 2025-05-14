@@ -20,7 +20,7 @@ The project is available at: https://press-agency.onrender.com/
 
 You can use the following test credentials to explore the functionality:
 - login: user
-- password: user123
+- password: user12345
 
 ## 🏗️ Tech Stack
 
